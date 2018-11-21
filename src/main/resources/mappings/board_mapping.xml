@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BoardDao">
+
+	<resultMap type="board" id="boardResult">
+		<id property="seq" column="seq"/>
+		<result property="title" column="title"/>
+		<result property="writer" column="writer"/>
+		<result property="content" column="content"/>
+		<result property="regdate" column="regdate"/>
+		<result property="cnt" column="cnt"/>
+		<result property="id" column="id"/>
+		<result property="fileName" column="fileName"/>
+	</resultMap>
+	
+	<insert id="write">
+		insert into board values (board_seq.nextval, #{title}, #{writer}, #{content}, sysdate, #{cnt}, #{id}, #{fileName})
+	</insert>
+	<update id="cntplus">
+		update board set cnt=cnt+1 where seq=#{seq}
+	</update>
+	<update id="update">
+		update board set title=#{title}, writer=#{writer}, content=#{content} where seq=#{seq}
+	</update>
+	<update id="delete">
+		delete from board where seq=#{seq}
+	</update>
+
+<select id="getList" resultMap="boardResult">
+		SELECT SEQ, title, WRITER, CONTENT, to_char(regdate, 'yyyy-mm-dd hh:mi:ss' ) regdate, CNT, ID from BOARD order by regdate desc
+	</select>
+<select id="searchtitle" resultMap="boardResult">
+		SELECT SEQ, title, WRITER, CONTENT, to_char(regdate, 'yyyy-mm-dd hh:mi:ss' ) regdate, CNT, ID, fileName from BOARD where title like #{keyword} order by regdate desc
+	</select>
+<select id="searchcontent" resultMap="boardResult">
+		SELECT SEQ, title, WRITER, CONTENT, to_char(regdate, 'yyyy-mm-dd hh:mi:ss' ) regdate, CNT, ID, fileName from BOARD where content like #{keyword} order by regdate desc
+	</select>	
+<select id="searchone" resultMap="boardResult">
+		SELECT SEQ, title, WRITER, CONTENT, to_char(regdate, 'yyyy-mm-dd hh:mi:ss' ) regdate, CNT, ID, fileName from BOARD where seq=#{seq}
+	</select>
+	
+</mapper>
