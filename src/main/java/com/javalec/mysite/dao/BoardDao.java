@@ -24,10 +24,10 @@ public class BoardDao {
 	}
 	
 	public List<BoardVO> searchtitle(String keyword){
-		return mybatis.selectList("BoardDao.searchtitle",keyword);
+		return mybatis.selectList("BoardDao.searchtitle","%"+keyword+"%");
 	}
 	public List<BoardVO> searchcontent(String keyword){
-		return mybatis.selectList("BoardDao.searchcontent",keyword);
+		return mybatis.selectList("BoardDao.searchcontent","%"+keyword+"%");
 	}
 	
 	public BoardVO getBoard(int seq) {

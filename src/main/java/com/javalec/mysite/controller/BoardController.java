@@ -31,6 +31,7 @@ public class BoardController {
 		
 		String keyword = req.getParameter("keyword");
 		String search = req.getParameter("search");
+		
 		if(keyword !=null) {
 			if(search.equals("content"))
 			{
